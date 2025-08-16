@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --space-900: #0a0f1c;
+  --space-800: #0e1626;
+  --glow-blue: #7fd3ff;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(1200px 600px at 50% 20%, rgba(70, 120, 200, 0.12), transparent 60%),
+              radial-gradient(800px 400px at 20% 80%, rgba(0, 180, 255, 0.06), transparent 60%),
+              var(--space-900);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  display: block;
+}
+
+
+
+@font-face{
+  font-family: anzo1;
+  src: url(./assets/font/file.woff2);
+}
+@font-face{
+  font-family: anzo2;
+  src: url(./assets/font/file2.woff2);
+}
+@font-face{
+  font-family: anzo3;
+  src: url(./assets/font/file3.woff2);
+}
+@font-face{
+  font-family: anzo4;
+  src: url(./assets/font/file4.woff2);
+}
+@font-face{
+  font-family: anzo5;
+  src: url(./assets/font/file5.woff2);
+}
+@font-face{
+  font-family: anzo6;
+  src: url(./assets/font/file6.woff2);
+}
