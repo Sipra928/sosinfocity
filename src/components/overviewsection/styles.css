@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap");
+
+
+body {
+  font-family: "Inter Tight", sans-serif;
+  background: white;
+  color: #fff;
+}
+
+
+/* Generic img reset */
+work-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 80%;
+}
+
+/* Hero Section */
+.hero, .outro{
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+h1{
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 5rem;
+    font-weight: 500;
+    line-height: 1;
+}
+section{
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+}
+.work-item {
+    height: 150svh;
+
+}
+.work-item-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(25% 25%, 75% 40%, 100% 100%, 0% 100%);
+    will-change:clip-path;
+    
+}
+
+.work-item-name{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    z-index: 1;
+
+}
+.work-item-name h1{
+    color: #fff;
+    font-size: 10vw;
+}
+
+@media (max-width: 1000px) {
+    h1, .work-item-name h1{
+        font-size: 2.5rem;
+
+
+    }
+    
+}
+
+.work-item-desc {
+    
+  position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    z-index: 1;
+    font-family: "anzo4";
+
+
+}
+.work-item-desc p {
+  font-size: 1.4vw;
+  line-height: 1.5;
+   color: #fff;
+}

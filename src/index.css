@@ -19,9 +19,12 @@ html, body, #root {
 }
 
 body {
-  background: radial-gradient(1200px 600px at 50% 20%, rgba(70, 120, 200, 0.12), transparent 60%),
+  /* background: radial-gradient(1200px 600px at 50% 20%, rgba(70, 120, 200, 0.12), transparent 60%),
               radial-gradient(800px 400px at 20% 80%, rgba(0, 180, 255, 0.06), transparent 60%),
-              var(--space-900);
+              var(--space-900); */
+              /* background: linear-gradient(135deg, #171e24, #0d1114); */
+              background: white;
+
   color: rgba(255, 255, 255, 0.9);
 }
 

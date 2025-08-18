@@ -1,115 +1,48 @@
 /*
-	Installed from https://reactbits.dev/tailwind/
+  BlurText → smoother line-by-line animation (slide + fade-in)
 */
 
 import { motion } from "motion/react";
-import { useEffect, useRef, useState, useMemo } from "react";
-
-const buildKeyframes = (from, steps) => {
-  const keys = new Set([
-    ...Object.keys(from),
-    ...steps.flatMap((s) => Object.keys(s)),
-  ]);
-
-  const keyframes = {};
-  keys.forEach((k) => {
-    keyframes[k] = [from[k], ...steps.map((s) => s[k])];
-  });
-  return keyframes;
-};
+import { useMemo } from "react";
 
 const BlurText = ({
   text = "",
-  delay = 200,
+  delay = 300, // slightly more gap between lines
   className = "",
-  animateBy = "words",
-  direction = "top",
-  threshold = 0.1,
-  rootMargin = "0px",
-  animationFrom,
-  animationTo,
-  easing = (t) => t,
-  onAnimationComplete,
-  stepDuration = 0.35,
+  stepDuration = 2, // slower for cinematic feel
 }) => {
-  const elements = animateBy === "words" ? text.split(" ") : text.split("");
-  const [inView, setInView] = useState(false);
-  const ref = useRef(null);
+  const lines = text.split("\n");
 
-  useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(ref.current);
-        }
-      },
-      { threshold, rootMargin },
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threshold, rootMargin]);
-
+  // From left & hidden
   const defaultFrom = useMemo(
-    () =>
-      direction === "top"
-        ? { filter: "blur(10px)", opacity: 0,  }
-        : { filter: "blur(10px)", opacity: 0,  },
-    [direction],
+    () => ({ x: -80, opacity: 0, filter: "blur(0px)" }),
+    []
   );
 
+  // To original position & visible
   const defaultTo = useMemo(
-    () => [
-      {
-        filter: "blur(5px)",
-        opacity: 0.5,
-        y: direction === "top" ? 5 : -5,
-      },
-      { filter: "blur(0px)", opacity: 1, y: 0 },
-    ],
-    [direction],
-  );
-
-  const fromSnapshot = animationFrom ?? defaultFrom;
-  const toSnapshots = animationTo ?? defaultTo;
-
-  const stepCount = toSnapshots.length + 1;
-  const totalDuration = stepDuration * (stepCount - 1);
-  const times = Array.from({ length: stepCount }, (_, i) =>
-    stepCount === 1 ? 0 : i / (stepCount - 1),
+    () => ({ x: 0, opacity: 1, filter: "blur(0px)" }),
+    []
   );
 
   return (
-    <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>
-      {elements.map((segment, index) => {
-        const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
-
-        const spanTransition = {
-          duration: totalDuration,
-          times,
-          delay: (index * delay) / 1000,
-        };
-        spanTransition.ease = easing;
-
-        return (
-          <motion.span
-            className="inline-block will-change-[transform,filter,opacity]"
-            key={index}
-            initial={fromSnapshot}
-            animate={inView ? animateKeyframes : fromSnapshot}
-            transition={spanTransition}
-            onAnimationComplete={
-              index === elements.length - 1 ? onAnimationComplete : undefined
-            }
-          >
-            {segment === " " ? "\u00A0" : segment}
-            {animateBy === "words" && index < elements.length - 1 && "\u00A0"}
-          </motion.span>
-        );
-      })}
-    </p>
+    <div className={`blur-text ${className} flex flex-col`}>
+      {lines.map((line, index) => (
+        <motion.p
+          key={index}
+          className="will-change-[transform,opacity,filter]"
+          initial={defaultFrom}
+          animate={defaultTo}
+          transition={{
+            duration: stepDuration,
+            delay: (index * delay) / 1000,
+            ease: [0.25, 1, 0.5, 1], // cubic-bezier "easeOutExpo" like
+          }}
+        >
+          {line}
+        </motion.p>
+      ))}
+    </div>
   );
 };
 

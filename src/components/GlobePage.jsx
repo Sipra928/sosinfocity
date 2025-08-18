@@ -44,7 +44,7 @@ function Scene() {
 export default function GlobePage() {
   const containerRef = useRef(null)
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen bg-[#151922]">
       {/* Left side: Text */}
       <div className="flex flex-col justify-center pl-[10%] w-1/2 space-y-8">
         <BlurText
@@ -75,7 +75,6 @@ export default function GlobePage() {
       {/* Right side: Canvas */}
       <div className="w-1/2 h-full ">
   <Canvas
-  s hadows
     camera={{ position: [0, 0, 5], fov: 45 }}
     gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
     dpr={[1, 2]}
@@ -93,7 +92,7 @@ export default function GlobePage() {
       autoRotateSpeed={0.25}
       minDistance={2.2}
       maxDistance={8}
-    />
+    />  
   </Canvas>
 </div>
 
