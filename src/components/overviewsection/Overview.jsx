@@ -84,7 +84,7 @@ const Overview = ({img, heading, desc}) => {
     <>
         <section className="work-item">
           <div className="work-item-img">
-            <img src={img} alt={`Work `} />
+            <img className="h-[120%]" src={img} alt={`Work `} />
           </div>
           {/* <div className="work-item-name">
             <h1>Work {idx}</h1>

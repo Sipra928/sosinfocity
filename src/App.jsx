@@ -1,20 +1,34 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 
-import GlobePage from './components/GlobePage'
-import SplitText from './components/SplitText/SplitText'
 import HomePage from './pages/HomePage'
-import MagicBento from './blocks/Components/MagicBento/MagicBento'
-import InfoPage from './components/InfoPage'
+import AboutPage from './pages/AboutPage'
+import ServicePage from './pages/ServicePage'
+import ClientPage from './pages/ClientPage'
+import ContactPage from './pages/ContactPage'
+import Navbar from './components/Navbar'
+
+const AnimatedRoutes = () => {
+  const location = useLocation()
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/service" element={<ServicePage />} />
+        <Route path="/client" element={<ClientPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </AnimatePresence>
+  )
+}
 
 const App = () => {
   return (
     <Router>
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-      
-      </Routes>
+      <AnimatedRoutes />
     </Router>
   )
 }
